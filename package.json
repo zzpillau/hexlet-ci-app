@@ -1,0 +1,46 @@
+{
+  "name": "strapi-test",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi",
+    "test": "jest --forceExit --detectOpenHandles"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
+    "jest": "^27.4.5",
+    "sqlite3": "^5.0.2",
+    "supertest": "^6.1.6"
+  },
+  "dependencies": {
+    "@strapi/plugin-i18n": "4.0.2",
+    "@strapi/plugin-users-permissions": "4.0.2",
+    "@strapi/strapi": "4.0.2"
+  },
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "6e511c67-062b-40f9-afe5-a1511ab9ebbd"
+  },
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      ".tmp",
+      ".cache"
+    ],
+    "testEnvironment": "node"
+  }
+}
