@@ -1,14 +1,33 @@
-const Strapi = require('@strapi/strapi');
+const Strapi = require("@strapi/strapi");
+const fs = require("fs");
 
 let instance;
 
 async function setupStrapi() {
   if (!instance) {
-    /** the following code in copied from `./node_modules/strapi/lib/Strapi.js` */
     await Strapi().load();
-    // eslint-disable-next-line no-undef
-    instance = strapi; // strapi is global now
+    instance = strapi;
+
+    await instance.server.mount();
   }
   return instance;
 }
-module.exports = { setupStrapi };
+
+async function cleanupStrapi() {
+  const dbSettings = strapi.config.get("database.connections.default.settings");
+
+  //close server to release the db-file
+  await strapi.server.httpServer.close();
+
+  //delete test database after all tests have completed
+  if (dbSettings && dbSettings.filename) {
+    const tmpDbFile = `${__dirname}/../${dbSettings.filename}`;
+    if (fs.existsSync(tmpDbFile)) {
+      fs.unlinkSync(tmpDbFile);
+    }
+  }
+  // close the connection to the database
+  await strapi.db.connection.destroy();
+}
+
+module.exports = { setupStrapi, cleanupStrapi };
