@@ -1,4 +1,4 @@
-name: setup
+name: Actions Status
 on: push
 jobs:
   my-job:
@@ -6,6 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
       - run: make setup
       - run: make install
       - run: make lint
